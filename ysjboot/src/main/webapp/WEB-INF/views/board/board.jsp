@@ -5,7 +5,7 @@
 </head>
 <body>
 	<div class="container">
-		<c:out value="${total}" />
+		<c:out value="${page.totalCnt}" />
 		<table id="table" data-height="460"
 			class="table table-bordered table-hover">
 			<thead>

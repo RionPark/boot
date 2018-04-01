@@ -62,6 +62,7 @@ delimiter ;
 		<if test="credat != null and credat !=''">
 			and credat = ${binum}
 		</if>
+		order by binum desc
 		<if test="snum !=null and snum !=''">
 			Limit ${snum}, ${enum}
 		</if>
