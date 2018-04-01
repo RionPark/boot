@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+<!-- 
+CREATE TABLE login (
+  no INT(11) unsigned NOT NULL auto_increment,
+  id varchar(30) not null,
+  name VARCHAR(32) NOT NULL,
+  password VARCHAR(30) NOT NULL,
+  privilege VARCHAR(30),
+  PRIMARY KEY (no),
+  unique index(id)
+);
+ -->
+	<delete id="deleteLogin" parameterType="Map" >
+		delete from board_info where binum = ${binum}
+	</delete>
+	<select id="getLogin" resultType="User" parameterType="User">
+		select id, name, password, no, level from User
+		where id = #{id}
+	</select>
+	<select id="getUserList" resultType="User">
+		select no, id, name, level from user
+	</select>
+</mapper>

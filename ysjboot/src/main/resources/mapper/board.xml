@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.BoardMapper">
+<!-- 
+drop table board_info;
+CREATE TABLE `board_info` (
+	`binum` INT(5) NOT NULL AUTO_INCREMENT,
+	`bititle` VARCHAR(255) NOT NULL,
+	`bicontent` TEXT NOT NULL,
+	`bipwd` VARCHAR(100) NOT NULL,
+	`creusr` VARCHAR(100) NOT NULL,
+	`credat` DATETIME NOT NULL,
+	PRIMARY KEY (`binum`)
+)
+delimiter
+$$
+
+CREATE PROCEDURE `p_board_info`(IN `loop_cnt` int(1))
+BEGIN
+	DECLARE i INT DEFAULT 1;
+
+	/* 만약 SQL에러라면 ROLLBACK 처리한다. */
+	DECLARE exit handler for SQLEXCEPTION
+	  BEGIN
+		ROLLBACK;        
+	END;
+	/* 트랜젝션 시작 */
+	START TRANSACTION;
+	WHILE (i <= loop_cnt) DO
+        INSERT INTO board_info(bititle,bicontent, bipwd, creusr,credat)
+        VALUES (concat('제목',i), concat('내용', i), concat('비밀번호', i), 
+		  concat('작성자', i), now());
+        SET i = i + 1;
+    END WHILE;
+	/* 커밋 */
+	COMMIT;
+END
+$$
+delimiter ;
+ -->
+	<delete id="deleteBoard" parameterType="Map" >
+		delete from board_info where binum = ${binum}
+	</delete>
+	
+	<select id="getBoard" resultType="BoardInfo" parameterType="_long">
+		select binum, bititle, bicontent, bipwd,creusr,credat from board_info
+		where binum = #{binum}
+	</select>
+	<select id="getBoardList" resultType="BoardInfo" parameterType="Map">
+		select binum, bititle, bicontent, bipwd,creusr,credat from board_info
+		where 1=1
+		<if test="binum!=null and binum!=''">
+			and binum = ${binum}
+		</if>
+		<if test="bititle!=null and bititle!=''">
+			and bititle like concat('%', ${bititle} , '%')
+		</if>
+		<if test="bicontent != null and bicontent != ''">
+			and bicontent like concat('%', ${bicontent} , '%')
+		</if>
+		<if test="credat != null and credat !=''">
+			and credat = ${binum}
+		</if>
+		<if test="snum !=null and snum !=''">
+			Limit ${snum}, ${enum}
+		</if>
+	</select>
+	<select id="getBoardTotalCount" resultType="Integer" parameterType="Map">
+		SELECT count(1) from board_info where 1=1
+		<if test="binum!=null and binum!=''">
+			and binum = ${binum}
+		</if>
+		<if test="bititle!=null and bititle!=''">
+			and bititle like concat('%', ${bititle} , '%')
+		</if>
+		<if test="bicontent != null and bicontent != ''">
+			and bicontent like concat('%', ${bicontent} , '%')
+		</if>
+		<if test="credat != null and credat !=''">
+			and credat = ${binum}
+		</if>
+	</select>
+</mapper>
