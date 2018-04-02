@@ -10,8 +10,6 @@ import com.example.demo.domain.SpringConfig;
 @SpringBootApplication
 @MapperScan("com.example.demo.mapper")
 public class BootApplication  {
-
-	
 	public static void main(String[] args) {
 		SpringApplication.run(BootApplication.class, args);
 	}
