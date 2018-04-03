@@ -1,5 +1,5 @@
 package test19;
-
+//https://github.com/RionPark/boot/tree/master/test01/src
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +24,10 @@ public class MariaCon extends AtDBCon{
 				String name = map.get("name");
 				if("√÷∞Ê»∆".equals(name)) {
 					map.put("name", "¿Ã∞Ê»∆");
+					int result = mc.update(map);
+					System.out.println("ºˆ¡§ ∞«ºˆ : " + result);
 				}
+				
 			}
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
@@ -32,7 +35,7 @@ public class MariaCon extends AtDBCon{
 	}
 
 	@Override
-	public int insert() {
+	public int insert(Map<String,String> map) {
 		return 0;
 	}
 
@@ -60,12 +63,22 @@ public class MariaCon extends AtDBCon{
 	}
 
 	@Override
-	public int update() {
+	public int update(Map<String,String> map) {
+		String sql = "update user_info\r\n" + 
+				"set name='" + map.get("name") +"'\r\n" + 
+				"where num=" + map.get("num");
+		try {
+			Statement stmt = con.createStatement();
+			int result = stmt.executeUpdate(sql);
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
 	@Override
-	public int delete() {
+	public int delete(Map<String,String> map) {
 		return 0;
 	}
 }

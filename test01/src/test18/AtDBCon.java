@@ -45,11 +45,11 @@ public abstract class AtDBCon {
 		}
 	}
 	//데이터 입력용 추상메서드
-	public abstract int insert();
+	public abstract int insert(Map<String,String> map);
 	//데이터 조회용 추상메서드
 	public abstract List<Map<String,String>> select();
 	//데이터 수정용 추상메서드
-	public abstract int update();
+	public abstract int update(Map<String,String> map);
 	//데이터 삭제용 추상메서드
-	public abstract int delete();
+	public abstract int delete(Map<String,String> map);
 }

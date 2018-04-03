@@ -32,7 +32,7 @@ public class MariaCon extends AtDBCon{
 	}
 
 	@Override
-	public int insert() {
+	public int insert(Map<String,String> map) {
 		return 0;
 	}
 
@@ -60,12 +60,12 @@ public class MariaCon extends AtDBCon{
 	}
 
 	@Override
-	public int update() {
+	public int update(Map<String,String> map) {
 		return 0;
 	}
 
 	@Override
-	public int delete() {
+	public int delete(Map<String,String> map) {
 		return 0;
 	}
 }
